@@ -23,14 +23,17 @@
 % OTHER DEALINGS IN THE SOFTWARE.
 
 % For more information, please refer to <http://unlicense.org/>
+clear all
 
 filenameImagesTest  = './mnist/t10k-images.idx3-ubyte';
 filenameLabelsTest  = './mnist/t10k-labels.idx1-ubyte';
+UseNDataForTesting = 10000
 
 XTest  = processImagesMNIST(filenameImagesTest);
 YTest  = processLabelsMNIST(filenameLabelsTest);
+YTest  = double(YTest)-1;  % the first category ('0') is converted to 1 here, to avoid this line one can comment the line 'Y = categorical(Y);' in processLabelsMNIST
 
-VectorizedXTest = reshape(XTest,28*28,10000);
+VectorizedXTest = reshape(XTest,28*28,UseNDataForTesting);
 
 clear XTest;      % VectorizedXTest will be used further, no need to keep this in memory
 
